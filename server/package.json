@@ -1,13 +1,13 @@
 {
-  "name": "server",
+  "name": "vercel-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "api/index.js",
   "files": [
     "rooms.json"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "dev": "nodemon api/index.js",
+    "start": "node api/index.js"
   },
   "keywords": [],
   "author": "",
@@ -35,7 +35,8 @@
     "react-owl-carousel": "^2.3.3",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.27.0",
-    "twilio": "^5.3.6"
+    "twilio": "^5.3.6",
+    "serverless-http": "^3.0.2"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
