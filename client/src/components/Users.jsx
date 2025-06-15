@@ -14,7 +14,7 @@ const Users = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get('http://localhost:8000/api/users/all');
+      const { data } = await axios.get('https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/users/all');
       setUsers(data);
       setLoading(false);
     } catch (error) {
@@ -26,7 +26,7 @@ const Users = () => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      await axios.delete(`http://localhost:8000/api/users/${userId}`);
+      await axios.delete(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/users/${userId}`);
       message.success('User deleted successfully');
       fetchUsers(); // Refresh the list
     } catch (error) {
@@ -37,7 +37,7 @@ const Users = () => {
 
   const handleToggleAdminStatus = async (userId, currentStatus) => {
     try {
-      await axios.patch(`http://localhost:8000/api/users/${userId}`, {
+      await axios.patch(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/users/${userId}`, {
         isAdmin: !currentStatus,
       });
       message.success('Admin status updated successfully');
