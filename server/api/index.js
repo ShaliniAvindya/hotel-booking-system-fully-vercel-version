@@ -31,7 +31,11 @@ app.use('/api/users', userRoutes);
 app.use('/api/book', bookRoutes);
 app.use('/api/notifications', notificationRoutes);
 
-// Health check route
+// Root and health check
+app.get('/', (req, res) => {
+  res.send('API is running. Try /api/health');
+});
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Backend server is running' });
 });
