@@ -21,7 +21,7 @@ const Account = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/book/${id}`);
+        const response = await fetch(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/book/${id}`);
         if (!response.ok) throw new Error('Failed to fetch booking data');
         const data = await response.json();
         const ongoing = data.filter((b) => b.status === 'Booked');
@@ -31,12 +31,12 @@ const Account = () => {
         const images = {};
         await Promise.all(
           ongoing.map(async (booking) => {
-            const roomResponse = await fetch(`http://localhost:8000/api/rooms/${booking.room_id}`);
+            const roomResponse = await fetch(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/rooms/${booking.room_id}`);
             const roomData = await roomResponse.json();
             images[booking.room_id] = roomData.imageUrls[0]; 
           }),
           previous.map(async (booking) => {
-            const roomResponse = await fetch(`http://localhost:8000/api/rooms/${booking.room_id}`);
+            const roomResponse = await fetch(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/rooms/${booking.room_id}`);
             const roomData = await roomResponse.json();
             images[booking.room_id] = roomData.imageUrls[0];
           })
@@ -54,7 +54,7 @@ const Account = () => {
 
   // Cancel booking handler
   const handleCancelBooking = (bookingId) => {
-    fetch(`http://localhost:8000/api/book/cancel/${bookingId}`, {
+    fetch(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/book/cancel/${bookingId}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -86,7 +86,7 @@ const Account = () => {
       return;
     }
 
-    fetch(`http://localhost:8000/api/users/${id}`, {
+    fetch(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/users/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: newName }),
@@ -121,7 +121,7 @@ const Account = () => {
       return;
     }
 
-    fetch(`http://localhost:8000/api/users/${id}`, {
+    fetch(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/users/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password: newPassword }),
