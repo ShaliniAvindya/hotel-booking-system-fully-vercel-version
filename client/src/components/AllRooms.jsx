@@ -47,7 +47,7 @@ const AllRooms = () => {
   const fetchRooms = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:8000/api/rooms');
+      const response = await axios.get('https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/rooms');
       setRooms(response.data);
     } catch (error) {
       console.error("Error fetching rooms:", error);
@@ -83,7 +83,7 @@ const AllRooms = () => {
 
   const handleSave = async () => {
     try {
-      const response = await axios.put(`http://localhost:8000/api/rooms/${editMode}`, editedRoom);
+      const response = await axios.put(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/rooms/${editMode}`, editedRoom);
       setRooms((prevRooms) =>
         prevRooms.map((room) => (room._id === editMode ? response.data : room))
       );
@@ -122,7 +122,7 @@ const AllRooms = () => {
   
   const handleUpdate = async (roomId) => {
     try {
-      const response = await axios.put(`http://localhost:8000/api/rooms/${roomId}`, editedRoom);
+      const response = await axios.put(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/rooms/${roomId}`, editedRoom);
       setRooms((prevRooms) =>
         prevRooms.map((room) => (room._id === roomId ? response.data : room))
       );
@@ -155,7 +155,7 @@ const AllRooms = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:8000/api/rooms/${roomId}`);
+      await axios.delete(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/rooms/${roomId}`);
       setRooms((prevRooms) => prevRooms.filter((room) => room._id !== roomId));
       alert("Room deleted successfully");
     } catch (error) {
