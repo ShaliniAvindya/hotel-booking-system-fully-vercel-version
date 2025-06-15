@@ -37,6 +37,11 @@ app.use('/api/rooms', roomRoutes);
 app.use('/api/book', bookRoutes);
 app.use('/api/notifications', notificationRoutes);
 
+// Health check route
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Backend server is up and running' });
+});
+
 // Connect to MongoDB (runs on cold start)
 mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://harithmadu:myhoteldb@cluster0.klue1z8.mongodb.net/hotel-booking', {
   useNewUrlParser: true,
@@ -46,4 +51,4 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://harithmadu:myhoteldb@cl
 .catch((err) => console.error('DB connection error:', err));
 
 module.exports = app;
-module.exports.handler = serverless(app);  // Vercel will invoke this
+module.exports.handler = serverless(app);
