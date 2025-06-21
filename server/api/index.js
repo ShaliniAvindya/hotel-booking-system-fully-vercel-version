@@ -1,4 +1,4 @@
-const express = require('express');Add commentMore actions
+const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const session = require('express-session');
@@ -12,23 +12,18 @@ const bookRoutes = require('../routes/bookingRoutes');
 const serverless = require('serverless-http');
 
 const app = express();
+
 app.use(bodyParser.json());
 app.use('/api/contact', contactRoutes);
 
-// Use CORS for cross-origin requests
-app.use(cors({ origin: process.env.FRONTEND_URL || '*', credentials: true }));
-
-// Middleware to parse JSON data
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 app.use(express.json());
 
-// Enable session for passport
 app.use(session({
   secret: process.env.SESSION_SECRET || 'your_session_secret',
   resave: false,
   saveUninitialized: false,
 }));
-
-// Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -37,13 +32,30 @@ app.use('/api/rooms', roomRoutes);
 app.use('/api/book', bookRoutes);
 app.use('/api/notifications', notificationRoutes);
 
-// Connect to MongoDB (runs on cold start)
-mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://harithmadu:myhoteldb@cluster0.klue1z8.mongodb.net/hotel-booking', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('DB connected successfully'))
-.catch((err) => console.error('DB connection error:', err));
+let cached = global.mongoose;
 
-module.exports = app;
-module.exports.handler = serverless(app);  // Vercel will invoke this
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function connectToDatabase() {
+  if (cached.conn) {
+    return cached.conn;
+  }
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }).then((mongoose) => mongoose);
+  }
+  cached.conn = await cached.promise;
+  return cached.conn;
+}
+
+// Wrapper handler that connects DB first
+const handler = async (req, res) => {
+  await connectToDatabase();
+  return app(req, res);
+};
+
+module.exports = handler;
