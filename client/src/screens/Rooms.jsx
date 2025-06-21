@@ -117,7 +117,7 @@ const Rooms = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let roomsUrl = 'http://localhost:8000/api/rooms';
+        let roomsUrl = 'https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/rooms';
         if (fromDate && toDate) {
           roomsUrl += `?fromDate=${dayjs(fromDate).format('YYYY-MM-DD')}&toDate=${dayjs(toDate).format('YYYY-MM-DD')}`;
         }
@@ -136,7 +136,7 @@ const Rooms = () => {
 
         if (fromDate && toDate) {
           try {
-            const bookingsUrl = 'http://localhost:8000/api/bookings';
+            const bookingsUrl = 'https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/bookings';
             console.log('Fetching bookings from:', bookingsUrl);
             const bookingsResponse = await axios.get(bookingsUrl, {
               params: {
