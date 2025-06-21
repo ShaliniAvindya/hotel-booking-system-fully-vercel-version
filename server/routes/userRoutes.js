@@ -1,7 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');  
 const jwt = require('jsonwebtoken');
-const passport = require('passport');
 const User = require('../models/user');
 
 const router = express.Router();
@@ -32,7 +31,6 @@ router.post('/register', async (req, res) => {
     res.status(500).json({ message: 'Error registering user' });
   }
 });
-
 
 // Login Route
 router.post('/login', async (req, res) => {
@@ -73,37 +71,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-
-// Social Login with Google
-router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-router.get(
-  '/auth/google/callback',
-  passport.authenticate('google', { session: false }),
-  async (req, res) => {
-    try {
-      // Check if user exists
-      const { email, name } = req.user;
-      let user = await User.findOne({ email });
-
-      // If user doesn't exist, create a new user
-      if (!user) {
-        user = new User({ name, email, password: null }); // No password for social login users
-        await user.save();
-      }
-
-      // Generate JWT token
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-      // Send token and user details
-      res.redirect(`http://localhost:3000/dashboard?token=${token}`);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Social login failed' });
-    }
-  }
-);
-
+// Get all users
 router.get('/all', async (req, res) => {
   try {
     const users = await User.find(); 
@@ -113,6 +81,7 @@ router.get('/all', async (req, res) => {
   }
 });
 
+// Delete user by ID
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -123,7 +92,8 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.put( '/:id', async (req, res) => {
+// Update user by ID
+router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const { name, password } = req.body;
   try {
@@ -149,6 +119,7 @@ router.put( '/:id', async (req, res) => {
   }
 });
 
+// Update admin status by ID
 router.patch('/:id/admin', async (req, res) => {
   const { id } = req.params;
   const { isAdmin } = req.body;
