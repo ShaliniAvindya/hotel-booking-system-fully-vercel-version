@@ -31,7 +31,7 @@ const PremiumPaymentGateway = () => {
   useEffect(() => {
     const fetchRoomData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/rooms/${id}`);
+        const response = await axios.get(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/rooms/${id}`);
         setSelectedRoom(response.data);
         const diffInDays = moment.duration(moment(toDate).diff(moment(fromDate))).asDays() + 1;
         setDays(diffInDays);
@@ -58,7 +58,7 @@ const PremiumPaymentGateway = () => {
     try {
       console.log(paymentDetails);
 
-      const response = await axios.post('http://localhost:8000/api/book/', paymentDetails);
+      const response = await axios.post('https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/book/', paymentDetails);
       Swal.fire('Payment Successful', 'Thank you for your payment!', 'success').then(() => {
         navigate('/');
         window.location.reload();
