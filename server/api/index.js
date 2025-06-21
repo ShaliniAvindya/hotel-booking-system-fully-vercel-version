@@ -1,51 +1,49 @@
-const express = require('express');
+const express = require('express');Add commentMore actions
 const mongoose = require('mongoose');
 const cors = require('cors');
 const session = require('express-session');
-const passport = require('../passport'); 
+const passport = require('../passport');
 const roomRoutes = require('../routes/roomRoutes');
 const userRoutes = require('../routes/userRoutes');
-const notificationRoutes = require('../routes/notificationRoutes'); 
-const bodyParser = require("body-parser");
-const contactRoutes = require('../routes/contactRoutes'); 
+const notificationRoutes = require('../routes/notificationRoutes');
+const bodyParser = require('body-parser');
+const contactRoutes = require('../routes/contactRoutes');
 const bookRoutes = require('../routes/bookingRoutes');
-const serverlessExpress = require('@vendia/serverless-express');
+const serverless = require('serverless-http');
 
-// Create Express app
 const app = express();
-
-// Middleware
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(bodyParser.json());
+app.use('/api/contact', contactRoutes);
+
+// Use CORS for cross-origin requests
+app.use(cors({ origin: process.env.FRONTEND_URL || '*', credentials: true }));
+
+// Middleware to parse JSON data
 app.use(express.json());
 
-// Sessions
+// Enable session for passport
 app.use(session({
   secret: process.env.SESSION_SECRET || 'your_session_secret',
   resave: false,
   saveUninitialized: false,
 }));
 
-// Passport
+// Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Routes
 app.use('/api/users', userRoutes);
 app.use('/api/rooms', roomRoutes);
 app.use('/api/book', bookRoutes);
 app.use('/api/notifications', notificationRoutes);
-app.use('/api/contact', contactRoutes);
 
-// MongoDB connection (only once)
-mongoose.connect(
-  'mongodb+srv://harithmadu:myhoteldb@cluster0.klue1z8.mongodb.net/hotel-booking',
-  { useNewUrlParser: true, useUnifiedTopology: true }
-).then(() => {
-  console.log('DB connect successful');
-}).catch((err) => {
-  console.error('DB connection error:', err);
-});
+// Connect to MongoDB (runs on cold start)
+mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://harithmadu:myhoteldb@cluster0.klue1z8.mongodb.net/hotel-booking', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('DB connected successfully'))
+.catch((err) => console.error('DB connection error:', err));
 
-// Export wrapped Express app for Vercel
-module.exports = serverlessExpress({ app });
+module.exports = app;
+module.exports.handler = serverless(app);  // Vercel will invoke this
