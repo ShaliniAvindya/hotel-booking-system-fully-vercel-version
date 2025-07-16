@@ -55,7 +55,7 @@ const AddRoom = () => {
     const fetchRoom = async () => {
       if (id) {
         try {
-          const response = await axios.get(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/rooms/${id}`);
+          const response = await axios.get(`https://lushhotels.com.lk/api/rooms/${id}`);
           setRoom(response.data);
         } catch (error) {
           console.error("Error fetching room:", error);
@@ -94,10 +94,10 @@ const AddRoom = () => {
     e.preventDefault();
     try {
       if (id) {
-        await axios.put(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/rooms/${id}`, room);
+        await axios.put(`https://lushhotels.com.lk/api/rooms/${id}`, room);
         setSnackbarMessage('Room updated successfully!');
       } else {
-        await axios.post('https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/rooms', room);
+        await axios.post('https://lushhotels.com.lk/api/rooms', room);
         setSnackbarMessage('Room added successfully!');
       }
       setSnackbarSeverity('success');
