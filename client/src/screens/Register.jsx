@@ -49,7 +49,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post("https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/users/register", {
+      const response = await axios.post("https://lushhotels.com.lk/api/users/register", {
         name: formData.name,
         email: formData.email,
         password: formData.password,
@@ -83,7 +83,7 @@ const Signup = () => {
   };
 
   const handleSocialRegister = (provider) => {
-    const url = `https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/users/auth/${provider}`;
+    const url = `https://lushhotels.com.lk/api/users/auth/${provider}`;
     window.location.href = url;
   };
 
