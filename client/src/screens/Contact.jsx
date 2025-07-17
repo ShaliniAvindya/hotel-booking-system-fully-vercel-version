@@ -340,29 +340,7 @@ export default function MaldivesContactPage() {
           </div>
         </div>
       </section>
-
-      {/* Map Section */}
-      <section className="py-16 px-6 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h3 className="text-5xl font-bold mb-4">Find Us in Paradise</h3>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Located in the pristine Baa Atoll, Azure Haven is easily accessible via seaplane transfer from Malé International Airport.
-            </p>
-          </div>
-          
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div className="aspect-video bg-blue-100 flex items-center justify-center">
-              <div className="text-center">
-                <MapPin className="h-8 w-8 text-blue-500 mx-auto mb-4" />
-                <p className="text-xl font-semibold text-gray-700 mb-2"> Map</p>
-                <p className="text-gray-500">Baa Atoll, Maldives</p>
-                <p className="text-sm text-gray-400 mt-2">GPS: 5.2815° N, 73.0169° E</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      
     </div>
   );
 }
