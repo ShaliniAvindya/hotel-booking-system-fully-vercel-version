@@ -16,7 +16,7 @@ const Bookings = () => {
     updatedBookings[index].status = value;
     setBookings(updatedBookings);
     axios
-      .put(`https://lushhotels.com.lk/api/book/update-status/${updatedBookings[index]._id}`, {
+      .put(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/book/update-status/${updatedBookings[index]._id}`, {
         status: value,
       })
       .catch((err) => console.error('Error updating status:', err));
