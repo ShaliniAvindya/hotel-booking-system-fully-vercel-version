@@ -14,7 +14,7 @@ const Users = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get('https://lushhotels.com.lk/api/users/all');
+      const { data } = await axios.get('https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/users/all');
       setUsers(data);
       setLoading(false);
     } catch (error) {
@@ -26,7 +26,7 @@ const Users = () => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      await axios.delete(`https://lushhotels.com.lk/api/users/${userId}`);
+      await axios.delete(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/users/${userId}`);
       message.success('User deleted successfully');
       fetchUsers(); // Refresh the list
     } catch (error) {
@@ -37,7 +37,7 @@ const Users = () => {
 
   const handleToggleAdminStatus = async (userId, currentStatus) => {
     try {
-      await axios.patch(`https://lushhotels.com.lk/api/users/${userId}/admin`, {
+      await axios.patch(`https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/users/${userId}/admin`, {
         isAdmin: !currentStatus,
       });
       message.success('Admin status updated successfully');
