@@ -23,7 +23,7 @@ export default function MaldivesContactPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch('https://lushhotels.com.lk/api/contact', {
+      await fetch('https://hotel-booking-system-fully-vercel-v-sigma.vercel.app/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
