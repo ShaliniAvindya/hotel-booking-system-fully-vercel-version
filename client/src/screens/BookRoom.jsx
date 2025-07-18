@@ -12,7 +12,6 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import moment from 'moment';
-import Footer from './Footer';
 import { useNavigate } from 'react-router-dom';
 
 const PremiumPaymentGateway = () => {
@@ -425,9 +424,6 @@ const PremiumPaymentGateway = () => {
 
       {/* Gap between payment box and footer */}
       <Box sx={{ py: { xs: 4, sm: 5, md: 3 } }} />
-
-      <Footer />
-
       {/* Add custom CSS for additional mobile responsiveness */}
       <style jsx>{`
         @keyframes float {
